@@ -6,6 +6,12 @@ interface IInputAddProps {
 
 export function InputAdd(props: IInputAddProps) {
   const [inputValue, setInputValue] = useState("");
+
+  function handleAdd() {
+    props.onAdd(inputValue);
+    setInputValue("");
+  }
+
   return (
     <>
       <input
@@ -14,14 +20,7 @@ export function InputAdd(props: IInputAddProps) {
           setInputValue(item.target.value);
         }}
       />
-      <button
-        onClick={() => {
-          props.onAdd(inputValue);
-          setInputValue("");
-        }}
-      >
-        ADD
-      </button>
+      <button onClick={handleAdd}>ADD</button>
     </>
   );
 }

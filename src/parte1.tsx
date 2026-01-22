@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { InputAdd } from "./components/inputAdd";
-import React from "react";
+import { TodoList } from "./components/todoList";
 
 export function Parte1() {
   const [list, setList] = useState([
@@ -9,29 +9,29 @@ export function Parte1() {
     { id: "3", label: "macarrão" },
   ]);
 
+  function handleAdd(value: string) {
+    setList([...list, { id: (list.length + 1).toString(), label: value }]);
+  }
+
+  function handleRemove(id: string) {
+    setList(list.filter((item) => item.id !== id));
+  }
+
   return (
     <>
-      <InputAdd
-        onAdd={(value) => {
-          setList([
-            ...list,
-            { id: (list.length + 1).toString(), label: value },
-          ]);
-        }}
-      />
+      <InputAdd onAdd={handleAdd} />
       <ol>
         {list.map((itemList) => {
           return (
-            <React.Fragment key={itemList.id}>
-              <li>{itemList.label}</li>
-              <button
-                onClick={() => {
-                  setList(list.filter((item) => item.id !== itemList.id));
-                }}
-              >
-                Remover
-              </button>
-            </React.Fragment>
+            <>
+              <TodoList
+                key={itemList.id} // a propriedade key o react ja importa automaticamente, para cada componente de lista, mas tem que passar ele, sempre que for usar lista no componente com um indicador adequado como o id que foi passado
+                id={itemList.id}
+                label={itemList.label}
+                onRemove={handleRemove}
+              />
+              {console.log(itemList)}
+            </>
           );
         })}
       </ol>
