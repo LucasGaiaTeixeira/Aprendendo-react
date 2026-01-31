@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { InputAdd } from "./components/inputAdd";
 import { TodoList } from "./components/todoList";
+import { List } from "./components/list";
+import { toDoApi } from "./shared/services/api/todoApi";
+
+toDoApi.getAll();
 
 export function Parte1() {
   const [list, setList] = useState([
@@ -20,7 +24,7 @@ export function Parte1() {
   return (
     <>
       <InputAdd onAdd={handleAdd} />
-      <ol>
+      <List>
         {list.map((itemList) => {
           return (
             <>
@@ -34,7 +38,7 @@ export function Parte1() {
             </>
           );
         })}
-      </ol>
+      </List>
     </>
   );
 }
